@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="AliExpressTestSuite">
+    <test name="testing">
+        <classes>
+            <class name="com.palyaeva.test.LoginTest">
+                <methods>
+                    <include name="validSignInTest"/>
+                    <exclude name="emptyPasswordTest"/>
+                    <exclude name="emptyLoginTest"/>
+                    <exclude name="incorrectAuthenticationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
