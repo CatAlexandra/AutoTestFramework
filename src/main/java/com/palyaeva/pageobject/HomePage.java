@@ -43,6 +43,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text()='Мои желания']")
     private WebElement myWishesLink;
 
+    @FindBy(xpath = "//span[text()='Мой AliExpress']")
+    private WebElement goToMyAliExpressButton;
+
     private static final String SIGN_IN_FRAME = "alibaba-login-box";
 
     public HomePage(WebDriver driver) {
@@ -130,7 +133,15 @@ public class HomePage extends BasePage {
 
     public MyWishesPage goToMyWishes() {
         log.info("go to My Wishes");
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOf(myWishesLink));
         myWishesLink.click();
         return new MyWishesPage(driver);
+    }
+
+    public MyAliExpress goToMyAliExpress() {
+        log.info("go to My AliExpress");
+        goToMyAliExpressButton.click();
+        return new MyAliExpress(driver);
     }
 }
