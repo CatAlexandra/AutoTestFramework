@@ -23,7 +23,14 @@ public class WebDriverCheck {
         }
     }
 
-
+    public static void waitTime(long time) {
+        long beginTime = System.currentTimeMillis();
+        while (true) {
+            if (System.currentTimeMillis() - beginTime >= time) {
+                break;
+            }
+        }
+    }
 
     public static boolean isElementExists(List<WebElement> elementList) {
         return !elementList.isEmpty();

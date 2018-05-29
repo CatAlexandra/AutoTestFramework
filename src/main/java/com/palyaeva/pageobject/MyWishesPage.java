@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +14,7 @@ import java.util.List;
 @Slf4j
 public class MyWishesPage extends HomePage {
 
-    @FindBy(xpath = "//ul[@class=\"list\"]/li//a[text()='Удалить']")
+    @FindAll({@FindBy(xpath = "//ul[@class=\"list\"]/li//a[text()='Удалить']")})
     private List<WebElement> removeButtonsList;
 
     @FindBy(xpath = "//h2[text()='Мои желания']")
@@ -47,7 +48,7 @@ public class MyWishesPage extends HomePage {
             try {
                 removeButtonsList.get(index).click();
                 log.info("Product with number {} deleted successfully!", index);
-                WebDriverWait wait = new WebDriverWait(driver, 5);
+                WebDriverWait wait = new WebDriverWait(driver, 10);
                 wait.until(ExpectedConditions.visibilityOf(myWishesHeader));
                 wait.until(ExpectedConditions.visibilityOf(myWishesLink));
             } catch (NoSuchElementException e) {
@@ -57,8 +58,11 @@ public class MyWishesPage extends HomePage {
     }
 
     public void clearMyWishes() {
-        for (int i = 0; i < countItemsInMyWishes(); i++) {
-            deleteProduct(i);
+//        for (int i = 0; i < countItemsInMyWishes(); i++) {
+//            deleteProduct(i);
+//        }
+        while (countItemsInMyWishes() > 0) {
+            deleteProduct(0);
         }
     }
 }

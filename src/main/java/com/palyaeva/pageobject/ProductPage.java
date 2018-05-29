@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.palyaeva.util.WebDriverCheck.isElementClickable;
@@ -68,6 +69,8 @@ public class ProductPage extends HomePage {
         addToMyWishesButton.click();
         chooseFirstItemFromDropDown.click();
         goToMyWishesButton.click();
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(2));
         return new MyWishesPage(driver);
     }
 

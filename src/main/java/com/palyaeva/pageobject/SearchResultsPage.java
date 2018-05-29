@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Slf4j
 public class SearchResultsPage extends HomePage {
 
-    @FindBy(xpath = "//ul[contains(@id,\"list-items\")]/li[1]")
+    @FindBy(xpath = "//ul[contains(@id,\"list-items\")]/li[1]//img")
     private WebElement firstElementInList;
 
     public SearchResultsPage(WebDriver driver) {
@@ -22,7 +22,11 @@ public class SearchResultsPage extends HomePage {
         try {
             firstElementInList.click();
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-            driver.switchTo().window(tabs.get(1));
+            if (tabs.size() > 1) {
+                int lastOpenedWindow = tabs.size() - 1;
+                driver.switchTo().window(tabs.get(lastOpenedWindow));
+            }
+
             //driver.close();
             //driver.switchTo().window(tabs2.get(0)).close();
             //driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "\t");

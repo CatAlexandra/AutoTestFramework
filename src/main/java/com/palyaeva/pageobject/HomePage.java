@@ -46,6 +46,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text()='Мой AliExpress']")
     private WebElement goToMyAliExpressButton;
 
+    @FindBy(css = ".logo-base")
+    private WebElement goToHomePageButton;
+
     private static final String SIGN_IN_FRAME = "alibaba-login-box";
 
     public HomePage(WebDriver driver) {
@@ -64,16 +67,17 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage openLoginPage() {
-        // WebDriverWait wait = new WebDriverWait(driver, 40);
-        // wait.until(ExpectedConditions.elementToBeClickable(By.className("user-account-info")));
-        // if (!isElementExists(popUpNewUser)) {
-        buttonAccountInfo.click();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.visibilityOf(buttonSignIn.get(0)));
-        buttonSignIn.get(0).click();
-        driver.switchTo().frame(SIGN_IN_FRAME);
-        log.info("Login page opened");
-        //}
+//        buttonAccountInfo.click();
+//        WebDriverWait wait = new WebDriverWait(driver, 5);
+//        wait.until(ExpectedConditions.visibilityOf(buttonSignIn.get(0)));
+//        buttonSignIn.get(0).click();
+//        driver.switchTo().frame(SIGN_IN_FRAME);
+//        log.info("Login page opened");
+        if (isSignInBtnExists()) {
+            buttonSignIn.get(0).click();
+            driver.switchTo().frame(SIGN_IN_FRAME);
+            log.info("Login page opened");
+        }
         return new LoginPage(driver);
     }
 
@@ -94,9 +98,15 @@ public class HomePage extends BasePage {
     }
 
     public void signOut() {
-        buttonAccountInfo.click();
-        buttonSignOut.get(0).click();
-        log.info("Signed out");
+//        buttonAccountInfo.click();
+//        buttonSignOut.get(1).click();
+//        buttonAccountInfo.click();
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOf(buttonSignIn.get(0)));
+        if (isSignOutBtnExists()) {
+            buttonSignOut.get(0).click();
+            log.info("Signed out");
+        }
     }
 
     public boolean isSignInBtnExists() {
@@ -143,5 +153,12 @@ public class HomePage extends BasePage {
         log.info("go to My AliExpress");
         goToMyAliExpressButton.click();
         return new MyAliExpress(driver);
+    }
+
+    public HomePage goToHomePage() {
+        goToHomePageButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(myWishesLink));
+        return new HomePage(driver);
     }
 }

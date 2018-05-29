@@ -22,7 +22,7 @@ public abstract class BaseTest {
         basePage = new BasePage(driver);
         homePage = navigate();
         Assert.assertTrue(homePage.isHomePage(), "Not on home page!");
-        //new LoginTest().validSignInTest();
+        new LoginTest().validSignInTest();
     }
 
     public HomePage navigate() {

@@ -14,11 +14,11 @@ public class LoginTest extends BaseTest {
 
     //private HomePage homePage;
 
-    private static final String VALID_LOGIN = "test-automation_account@mail.ru";
+    //private static final String VALID_LOGIN = "test-automation_account@mail.ru";
     //private static final String VALID_LOGIN = "dejo@p33.org";
-    //private String VALID_LOGIN = "alexandra.palyaeva@gmail.com";
-    private static final String VALID_PASSWORD = "123456";
-    //private String VALID_PASSWORD = "Xdr5789";
+    private String VALID_LOGIN = "alexandra.palyaeva@gmail.com";
+    //private static final String VALID_PASSWORD = "123456";
+    private String VALID_PASSWORD = "Xdr5789";
     private static final String INVALID_LOGIN = "invalid_login";
     private static final String INVALID_PASSWORD = "invalid_password";
 
@@ -30,7 +30,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void validSignInTest() {
-        log.info("validSignInTest");
+        log.info("valid Sign In Test");
         account = new Account(VALID_LOGIN, VALID_PASSWORD);
         homePage.loginAs(account.getLogin(), account.getPassword());
         Assert.assertTrue(homePage.isSignOutBtnExists(), "Sign in failed!");
@@ -38,7 +38,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void emptyPasswordTest() {
-        log.info("emptyPasswordTest");
+        log.info("empty Password Test");
         account = new Account(VALID_LOGIN, "");
         homePage.loginAs(account.getLogin(), account.getPassword());
         Assert.assertTrue(new LoginPage(homePage.driver).isEmptyPassword(), "Sign in failed!");
@@ -46,7 +46,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void emptyLoginTest() {
-        log.info("emptyLoginTest");
+        log.info("empty Login Test");
         account = new Account(VALID_LOGIN, "");
         homePage.loginAs(account.getLogin(), account.getPassword());
         Assert.assertTrue(new LoginPage(homePage.driver).isEmptyLogin(), "Sign in failed!");
@@ -75,7 +75,7 @@ public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "Authentication")
     public void incorrectAuthenticationTest(String login, String password) {
-        log.info("incorrectAuthenticationTest");
+        log.info("incorrect Authentication Test");
         account = new Account(login, password);
         homePage.loginAs(account.getLogin(), account.getPassword());
         Assert.assertTrue(new LoginPage(homePage.driver).isIncorrectLoginOrPassword(), "Fail in incorrect authentication test!");

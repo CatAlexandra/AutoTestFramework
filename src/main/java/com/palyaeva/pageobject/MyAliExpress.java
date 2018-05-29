@@ -20,9 +20,9 @@ public class MyAliExpress extends HomePage {
                 deliveryAddressesLink.isDisplayed());
     }
 
-    public AddressPage goToDeliveryAddresses() {
+    public DeliveryAddresses goToDeliveryAddresses() {
         log.info("Go to Delivery addresses");
         deliveryAddressesLink.click();
-        return new AddressPage(driver);
+        return new DeliveryAddresses(driver);
     }
 }

@@ -27,20 +27,21 @@ public class LoginPage extends HomePage {
     @FindBy(xpath = "//span[text()='Пожалуйста, введите свой пароль.']")
     private static List<WebElement> passwordEmptyError;
 
-    @FindBy(xpath = "//span[text()='Пожалуйста, введите свой адрес электронной почты или ID пользователя.']")
+    @FindBy(xpath = "//span[text()='Пожалуйста, введите свой адрес " +
+            "электронной почты или ID пользователя.']")
     private static List<WebElement> loginEmptyError;
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public HomePage typeUsername(String username) {
+    public LoginPage typeUsername(String username) {
         inputUsername.clear();
         inputUsername.sendKeys(username);
         return this;
     }
 
-    public HomePage typePassword(String password) {
+    public LoginPage typePassword(String password) {
         inputPassword.clear();
         inputPassword.sendKeys(password);
         return this;

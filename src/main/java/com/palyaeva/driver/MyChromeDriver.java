@@ -20,7 +20,7 @@ public class MyChromeDriver {
         String driverFilePath = DRIVER_RESOURCE_PATH;
         System.setProperty(WEB_DRIVER_PROPERTY_KEY, driverFilePath);
         WebDriver chromeDriver = new ChromeDriver();
-        chromeDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         // Causes TimeoutException: timeout - Timed out receiving message from renderer
         //chromeDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         driver = chromeDriver;

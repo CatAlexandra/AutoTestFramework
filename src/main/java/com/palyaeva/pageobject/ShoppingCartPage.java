@@ -6,11 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static com.palyaeva.util.WebDriverCheck.waitTime;
 import static com.palyaeva.util.WebDriverCheck.waitWhilePageLoaded;
 
 @Slf4j
@@ -27,6 +27,9 @@ public class ShoppingCartPage extends HomePage {
 
     @FindBy(css = ".remove-all-product")
     private WebElement deleteAllProductsButton;
+
+    @FindBy(css = "input[value='ОК'][type='button']")
+    private WebElement deleteAllProductsConfirmButton;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -48,8 +51,9 @@ public class ShoppingCartPage extends HomePage {
 
     public Integer indicatorCountItemsInCart() {
         waitWhilePageLoaded(driver);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.textToBePresentInElementValue(indicatorItemsInCart, countItemsInCart().toString()));
+        // WebDriverWait wait = new WebDriverWait(driver, 5);
+        // wait.until(ExpectedConditions.textToBePresentInElementValue(indicatorItemsInCart, countItemsInCart().toString()));
+        waitTime(TimeUnit.SECONDS.toMillis(3));
         return Integer.parseInt(indicatorItemsInCart.getText());
     }
 
@@ -73,6 +77,7 @@ public class ShoppingCartPage extends HomePage {
     public void clearShoppingCart() {
         if (countItemsInCart() > 0) {
             deleteAllProductsButton.click();
+            deleteAllProductsConfirmButton.click();
             log.info("Cart cleared successfully");
         } else {
             log.error("Cart clear failed - cart is empty");
