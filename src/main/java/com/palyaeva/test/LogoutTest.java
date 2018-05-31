@@ -1,5 +1,6 @@
 package com.palyaeva.test;
 
+import com.palyaeva.pageobject.BasePage;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;

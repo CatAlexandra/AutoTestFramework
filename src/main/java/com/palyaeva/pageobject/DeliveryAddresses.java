@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static com.palyaeva.util.WebDriverCheck.isElementExists;
+import static com.palyaeva.util.WebDriverUtils.isElementExists;
 
 @Slf4j
 public class DeliveryAddresses extends MyAliExpress {
@@ -36,6 +38,8 @@ public class DeliveryAddresses extends MyAliExpress {
 
     public DeliveryAddresses deleteAddress() {
         log.info("Delete address");
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(deleteAddressButton));
         deleteAddressButton.click();
         confirmDelete.click();
         return this;

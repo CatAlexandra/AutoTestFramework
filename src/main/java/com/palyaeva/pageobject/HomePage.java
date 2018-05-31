@@ -4,14 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static com.palyaeva.util.WebDriverCheck.isElementExists;
-import static com.palyaeva.util.WebDriverCheck.whileElementsExists;
+import static com.palyaeva.util.WebDriverUtils.isElementExists;
+import static com.palyaeva.util.WebDriverUtils.whileElementsExists;
 
 @Slf4j
 public class HomePage extends BasePage {
@@ -19,7 +20,7 @@ public class HomePage extends BasePage {
     @FindBy(className = "newuser-container")
     private List<WebElement> popUpNewUser;
 
-    @FindBy(className = "close-layer")
+    @FindBy(css = ".close-layer")
     private WebElement buttonCloseNewUserPopUp;
 
     @FindBy(className = "user-account-info")
@@ -43,7 +44,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//span[text()='Мои желания']")
     private WebElement myWishesLink;
 
-    @FindBy(xpath = "//span[text()='Мой AliExpress']")
+    @FindBy(xpath = "//a[text()='Мой AliExpress']")
     private WebElement goToMyAliExpressButton;
 
     @FindBy(css = ".logo-base")
@@ -58,7 +59,16 @@ public class HomePage extends BasePage {
     // если появляется всплывающее окно с купоном
     public void closeNewUserPopUp() {
         if (isElementExists(popUpNewUser)) {
-            buttonCloseNewUserPopUp.click();
+
+//            By loadingImage = By.cssSelector(".newuser-container");
+//            WebDriverWait wait = new WebDriverWait(driver, 10);
+//            wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingImage));
+
+            Actions actions = new Actions(driver);
+
+            actions.moveToElement(buttonCloseNewUserPopUp).click().perform();
+
+            //buttonCloseNewUserPopUp.click();
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.className("ui-mask")));
             log.info("Pop-up closed");
@@ -85,8 +95,8 @@ public class HomePage extends BasePage {
         closeNewUserPopUp();
         LoginPage loginPage = openLoginPage();
         loginPage.login(username, password);
-        WebDriverWait wait = new WebDriverWait(driver, 40);
-        wait.until(ExpectedConditions.visibilityOf(buttonAccountInfo));
+//        WebDriverWait wait = new WebDriverWait(driver, 40);
+//        wait.until(ExpectedConditions.visibilityOf(buttonAccountInfo));
         log.info("Logged in as username: {}, password: {}", username, password);
         closeNewUserPopUp();
         return new HomePage(driver);
@@ -103,10 +113,18 @@ public class HomePage extends BasePage {
 //        buttonAccountInfo.click();
 //        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        wait.until(ExpectedConditions.visibilityOf(buttonSignIn.get(0)));
-        if (isSignOutBtnExists()) {
-            buttonSignOut.get(0).click();
-            log.info("Signed out");
-        }
+//        if (isSignOutBtnExists()) {
+//            WebDriverWait wait = new WebDriverWait(driver, 10);
+//            wait.until(ExpectedConditions.visibilityOf(buttonSignOut.get(0)));
+
+//        buttonAccountInfo.click();
+//        buttonSignOut.get(0).click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(buttonAccountInfo).click().perform();
+        actions.moveToElement(buttonSignOut.get(0)).click().perform();
+
+        log.info("Signed out");
+        //   }
     }
 
     public boolean isSignInBtnExists() {
@@ -151,14 +169,17 @@ public class HomePage extends BasePage {
 
     public MyAliExpress goToMyAliExpress() {
         log.info("go to My AliExpress");
+        buttonAccountInfo.click();
         goToMyAliExpressButton.click();
         return new MyAliExpress(driver);
     }
 
     public HomePage goToHomePage() {
-        goToHomePageButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(myWishesLink));
+        //goToHomePageButton.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(goToHomePageButton).click().perform();
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOf(myWishesLink));
         return new HomePage(driver);
     }
 }

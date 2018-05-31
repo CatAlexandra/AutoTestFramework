@@ -6,7 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import static com.palyaeva.util.WebDriverUtils.waitTime;
+import static com.palyaeva.util.WebDriverUtils.switchOnNewTab;
 
 @Slf4j
 public class SearchResultsPage extends HomePage {
@@ -21,11 +24,8 @@ public class SearchResultsPage extends HomePage {
     public ProductPage selectFirstProduct() {
         try {
             firstElementInList.click();
-            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-            if (tabs.size() > 1) {
-                int lastOpenedWindow = tabs.size() - 1;
-                driver.switchTo().window(tabs.get(lastOpenedWindow));
-            }
+            waitTime(TimeUnit.SECONDS.toMillis(2));
+            switchOnNewTab(driver);
 
             //driver.close();
             //driver.switchTo().window(tabs2.get(0)).close();

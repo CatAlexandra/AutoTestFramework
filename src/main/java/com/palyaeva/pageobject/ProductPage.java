@@ -8,11 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.palyaeva.util.WebDriverCheck.isElementClickable;
-import static com.palyaeva.util.WebDriverCheck.waitWhilePageLoaded;
+import static com.palyaeva.util.WebDriverUtils.*;
 
 @Slf4j
 public class ProductPage extends HomePage {
@@ -67,10 +65,11 @@ public class ProductPage extends HomePage {
     public MyWishesPage addToWishList() {
         log.info("Add product to Wish list");
         addToMyWishesButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(chooseFirstItemFromDropDown));
         chooseFirstItemFromDropDown.click();
         goToMyWishesButton.click();
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(2));
+        switchOnNewTab(driver);
         return new MyWishesPage(driver);
     }
 

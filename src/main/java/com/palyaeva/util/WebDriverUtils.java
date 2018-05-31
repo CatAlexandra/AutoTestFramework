@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class WebDriverCheck {
+public class WebDriverUtils {
 
     public static void whileElementsExists(List<WebElement> elementList) {
         whileElementsExists(elementList, TimeUnit.SECONDS.toMillis(30));
@@ -45,7 +46,13 @@ public class WebDriverCheck {
                 webDriver -> ((JavascriptExecutor) webDriver)
                         .executeScript("return document.readyState").equals("complete"));
     }
-//    public boolean isElementExists(By locator) {
-//        return !driver.findElements(locator).isEmpty();
-//    }
+
+    public static void switchOnNewTab(WebDriver driver){
+    ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            if (tabs.size() > 1) {
+                int lastOpenedWindow = tabs.size() - 1;
+                driver.switchTo().window(tabs.get(lastOpenedWindow));
+            }
+    }
 }
+

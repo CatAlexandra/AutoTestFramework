@@ -10,8 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.palyaeva.util.WebDriverCheck.waitTime;
-import static com.palyaeva.util.WebDriverCheck.waitWhilePageLoaded;
+import static com.palyaeva.util.WebDriverUtils.waitTime;
+import static com.palyaeva.util.WebDriverUtils.waitWhilePageLoaded;
 
 @Slf4j
 public class ShoppingCartPage extends HomePage {

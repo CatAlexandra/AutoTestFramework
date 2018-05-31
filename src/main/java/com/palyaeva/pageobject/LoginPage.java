@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static com.palyaeva.util.WebDriverCheck.isElementExists;
+import static com.palyaeva.util.WebDriverUtils.isElementExists;
 
 public class LoginPage extends HomePage {
 

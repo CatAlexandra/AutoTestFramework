@@ -12,8 +12,6 @@ public class LoginTest extends BaseTest {
 
     private Account account;
 
-    //private HomePage homePage;
-
     //private static final String VALID_LOGIN = "test-automation_account@mail.ru";
     //private static final String VALID_LOGIN = "dejo@p33.org";
     private String VALID_LOGIN = "alexandra.palyaeva@gmail.com";
@@ -22,13 +20,7 @@ public class LoginTest extends BaseTest {
     private static final String INVALID_LOGIN = "invalid_login";
     private static final String INVALID_PASSWORD = "invalid_password";
 
-//    @BeforeTest
-//    public void setUp() {
-//        homePage = navigate();
-//        Assert.assertTrue(homePage.isHomePage(), "Not on home page!");
-//    }
-
-    @Test
+    @Test(dependsOnGroups = "incorrectAuthentication")
     public void validSignInTest() {
         log.info("valid Sign In Test");
         account = new Account(VALID_LOGIN, VALID_PASSWORD);
@@ -36,7 +28,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(homePage.isSignOutBtnExists(), "Sign in failed!");
     }
 
-    @Test
+    @Test(groups = {"incorrectAuthentication"})
     public void emptyPasswordTest() {
         log.info("empty Password Test");
         account = new Account(VALID_LOGIN, "");
@@ -44,7 +36,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(new LoginPage(homePage.driver).isEmptyPassword(), "Sign in failed!");
     }
 
-    @Test
+    @Test(groups = {"incorrectAuthentication"})
     public void emptyLoginTest() {
         log.info("empty Login Test");
         account = new Account(VALID_LOGIN, "");
@@ -52,28 +44,12 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(new LoginPage(homePage.driver).isEmptyLogin(), "Sign in failed!");
     }
 
-//    @Test
-//    public void invalidLoginTest() {
-//        account = new Account(INVALID_LOGIN, VALID_PASSWORD);
-//        HomePage loginPage = navigate();
-//        loginPage.loginAs(account.getLogin(), account.getPassword());
-//        Assert.assertTrue(loginPage.isIncorrectLoginOrPassword(), "Fail in invalid login test!");
-//    }
-//
-//    @Test
-//    public void invalidPasswordTest() {
-//        account = new Account(VALID_LOGIN, INVALID_PASSWORD);
-//        HomePage loginPage = navigate();
-//        loginPage.loginAs(account.getLogin(), account.getPassword());
-//        Assert.assertTrue(loginPage.isIncorrectLoginOrPassword(), "Fail in invalid password test!");
-//    }
-
     @DataProvider(name = "Authentication")
     public Object[][] credentials() {
         return new Object[][]{{VALID_LOGIN, INVALID_PASSWORD}, {INVALID_LOGIN, VALID_PASSWORD}};
     }
 
-    @Test(dataProvider = "Authentication")
+    @Test(dataProvider = "Authentication", groups = {"incorrectAuthentication"})
     public void incorrectAuthenticationTest(String login, String password) {
         log.info("incorrect Authentication Test");
         account = new Account(login, password);

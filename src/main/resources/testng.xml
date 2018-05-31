@@ -1,15 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="AliExpressTestSuite">
-    <test name="testing">
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+    </listeners>
+    <test name="BasicTests">
+        <!--<groups>-->
+        <!--<run>-->
+        <!--<include name="incorrectAuthentication"/>-->
+        <!--</run>-->
+        <!--</groups>-->
         <classes>
             <class name="com.palyaeva.test.LoginTest">
-                <methods>
-                    <include name="validSignInTest"/>
-                    <exclude name="emptyPasswordTest"/>
-                    <exclude name="emptyLoginTest"/>
-                    <exclude name="incorrectAuthenticationTest"/>
-                </methods>
+                <!--<methods>-->
+                <!--<include name="emptyPasswordTest"/>-->
+                <!--<include name="emptyLoginTest"/>-->
+                <!--<include name="incorrectAuthenticationTest"/>-->
+                <!--<include name="validSignInTest"/>-->
+                <!--</methods>-->
             </class>
+            <class name="com.palyaeva.test.ShoppingCartTest"/>
+            <class name="com.palyaeva.test.WishListTest"/>
+            <class name="com.palyaeva.test.AddressTest"/>
         </classes>
     </test>
 </suite>

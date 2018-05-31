@@ -6,8 +6,8 @@ import com.palyaeva.pageobject.HomePage;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
 @Slf4j
 public abstract class BaseTest {
@@ -15,14 +15,14 @@ public abstract class BaseTest {
     public BasePage basePage;
     public static HomePage homePage;
 
-    @BeforeClass
+    @BeforeSuite
     public void setUp() {
         log.info("Starting web driver");
         driver = MyChromeDriver.getDriver();
         basePage = new BasePage(driver);
         homePage = navigate();
         Assert.assertTrue(homePage.isHomePage(), "Not on home page!");
-        new LoginTest().validSignInTest();
+        //new LoginTest().validSignInTest();
     }
 
     public HomePage navigate() {
@@ -34,7 +34,7 @@ public abstract class BaseTest {
         return driver;
     }
 
-    @AfterClass
+    @AfterSuite
     public void tearDown() {
         new LogoutTest().logout();
         log.info("Web driver quit");

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.palyaeva.util.WebDriverCheck.waitTime;
+import static com.palyaeva.util.WebDriverUtils.waitTime;
 
 @Slf4j
 public class ShoppingCartTest extends BaseTest {
@@ -20,6 +20,7 @@ public class ShoppingCartTest extends BaseTest {
 
     @BeforeClass
     public void openShoppingCart() {
+        log.info("Class ShoppingCartTest");
         log.info("Open shopping cart");
         cart = homePage.goToCart();
         Assert.assertTrue(cart.isShoppingCart(), "Current page is not shopping cart page!");
@@ -27,14 +28,14 @@ public class ShoppingCartTest extends BaseTest {
 
     @DataProvider(name = "addProduct")
     public Object[][] credentials() {
-        return new Object[][]{{"usb"}, {"фонарик"}, {"pencil"}};
+        return new Object[][]{{"usb"}, {"flashlight"}, {"pencil"}};
     }
 
     @Test(dataProvider = "addProduct")
     public void addProductTest(String productName) {
-        waitTime(TimeUnit.SECONDS.toMillis(3));
+        waitTime(TimeUnit.SECONDS.toMillis(2));
 
-        log.info("Add product to cart test");
+        log.info("Add product to cart Test");
         try {
             ProductPage product = cart.search(productName).selectFirstProduct();
 
@@ -63,7 +64,7 @@ public class ShoppingCartTest extends BaseTest {
     public void deleteProductTest() {
         // waitTime(TimeUnit.SECONDS.toMillis(3));
 
-        log.info("Delete product from cart");
+        log.info("Delete one product from cart Test");
         int countBefore = cart.countItemsInCart();
         cart.deleteProduct(0);
         waitTime(TimeUnit.SECONDS.toMillis(2));
@@ -71,13 +72,19 @@ public class ShoppingCartTest extends BaseTest {
         Assert.assertEquals(countAfter, countBefore - 1);
     }
 
-    @AfterClass
+    @Test(dependsOnMethods = "deleteProductTest")
     public void clearCartTest() {
-        //waitTime(TimeUnit.SECONDS.toMillis(3));
+        // waitTime(TimeUnit.SECONDS.toMillis(2));
 
-        log.info("Delete all products from cart");
+        log.info("Delete all products from cart Test");
         cart.clearShoppingCart();
         int countAfter = cart.countItemsInCart();
         Assert.assertEquals(countAfter, 0);
     }
+
+//    @AfterClass
+//    public void goToHomePage() {
+//        log.info("Class ShoppingCartTest finished");
+//        homePage = cart.goToHomePage();
+//    }
 }

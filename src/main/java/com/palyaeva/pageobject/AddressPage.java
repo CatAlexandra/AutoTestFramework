@@ -6,6 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Slf4j
 public class AddressPage extends DeliveryAddresses {
@@ -92,6 +94,7 @@ public class AddressPage extends DeliveryAddresses {
 
     public AddressPage typeToInput(WebElement element, String infoType, String data) {
         log.info("Type {}", infoType);
+        element.clear();
         element.sendKeys(data);
         return this;
     }
@@ -113,7 +116,9 @@ public class AddressPage extends DeliveryAddresses {
     }
 
     public AddressPage chooseCountry() {
-        log.info("Choose country");
+        log.info("Choose country - Russia");
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(countrySelect));
         countrySelect.click();
         try {
             countrySelect.findElement(By.cssSelector("option[value=\"RU\"]")).click();
@@ -204,8 +209,32 @@ public class AddressPage extends DeliveryAddresses {
     }
 
     public DeliveryAddresses saveAddress() {
+        log.info("Saving address");
         saveButton.click();
         return new DeliveryAddresses(driver);
     }
 
+    public void clickSomewhere() {
+        addressPageTitle.click();
+    }
+
+//    public void clearNameInput() {
+//        nameInput.clear();
+//    }
+//
+//    public void clearStreetInput() {
+//        streetHouseFlatInput.clear();
+//    }
+//
+//    public void clearFlatInput() {
+//        flatInput.clear();
+//    }
+//
+//    public void clearIndexInput() {
+//        postIndexInput.clear();
+//    }
+//
+//    public void clearPhoneInput() {
+//        mobileNumberInput.clear();
+//    }
 }
