@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="AliExpressTestSuite">
-    <listeners>
-        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-    </listeners>
-    <test name="BasicTests">
-        <!--<groups>-->
-        <!--<run>-->
-        <!--<include name="incorrectAuthentication"/>-->
-        <!--</run>-->
-        <!--</groups>-->
+    <!--<listeners>-->
+        <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
+        <!--<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>-->
+    <!--</listeners>-->
+    <test name="Login tests">
         <classes>
-            <class name="com.palyaeva.test.LoginTest">
-                <!--<methods>-->
-                <!--<include name="emptyPasswordTest"/>-->
-                <!--<include name="emptyLoginTest"/>-->
-                <!--<include name="incorrectAuthenticationTest"/>-->
-                <!--<include name="validSignInTest"/>-->
-                <!--</methods>-->
-            </class>
+            <class name="com.palyaeva.test.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Shopping cart tests">
+        <classes>
             <class name="com.palyaeva.test.ShoppingCartTest"/>
+        </classes>
+    </test>
+    <test name="Wish list tests">
+        <classes>
             <class name="com.palyaeva.test.WishListTest"/>
+        </classes>
+    </test>
+    <test name="Delivery address tests">
+        <classes>
             <class name="com.palyaeva.test.AddressTest"/>
         </classes>
     </test>
